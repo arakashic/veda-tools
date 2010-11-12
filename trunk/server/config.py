@@ -13,7 +13,7 @@ def get_config(config_file='', config_name='', sectionhead='', sectiontail=''):
     head = 0
     tail = len(lines)
     token = re.compile(config_name)
-    if len(section) == 0:
+    if len(sectionhead) == 0:
         sechead = re.compile(sectionhead)
         sectail = re.compile(sectiontail)
         for i in range(0, len(lines)):
@@ -21,13 +21,17 @@ def get_config(config_file='', config_name='', sectionhead='', sectiontail=''):
                 head = i
             if sectail.search(lines[i]):
                 tail = i
-    for i in rang(head, tail):
+    for i in range(head, tail):
         if lines[i][0] == '#':
             continue
-        if token.search(line):
-            temp = lines[i].split(' ')
+        if token.search(lines[i]):
+            temp = lines[i].strip().split(' ')
             config_value = temp[len(temp)-1]
             break
     
     return config_value
+
+if __name__ == "__main__":
+    print get_config("/etc/apache2/apache2.conf", "MaxClients", "_prefork_", "IfModule")
+    # apply_config_line("/etc/apache2/apache2.conf", "MaxClients", "MaxCliens -99")
             
