@@ -1,0 +1,1 @@
+Virtual Machine Datacenter Agent is a virtual machine cluster management tools pack.
